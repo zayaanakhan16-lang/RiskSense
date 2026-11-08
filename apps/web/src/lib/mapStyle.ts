@@ -12,6 +12,10 @@ import type { StyleSpecification } from "maplibre-gl";
 const TILES_BASE =
   process.env.NEXT_PUBLIC_TILES_URL ?? "https://tiles.openfreemap.org";
 
+/** URL of the vector basemap style. Overridable for self-hosted tile servers. */
+export const STYLE_URL =
+  process.env.NEXT_PUBLIC_MAP_STYLE_URL ?? `${TILES_BASE}/styles/positron`;
+
 export const ATTRIBUTION =
   '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · ' +
   'Style © <a href="https://openfreemap.org">OpenFreeMap</a> · ' +
@@ -44,6 +48,3 @@ export function fallbackStyle(): StyleSpecification {
     layers: [{ id: "carto", type: "raster", source: "carto" }],
   };
 }
-
-/** URL of the vector basemap style. Overridable for self-hosted tile servers. */
-export const STYLE_URL = `${TILES_BASE}/styles/positron`;
