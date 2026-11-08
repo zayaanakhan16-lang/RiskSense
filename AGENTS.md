@@ -15,9 +15,28 @@ with `packages/shared`, `packages/data-sources`, `packages/hazard-engine`.
   at the root first — a bare `npm install` inside `apps/web` does not create them.
 
 ## Deploying to Vercel
-- `apps/web/vercel.json` is the only config. Set the Vercel project **Root
-  Directory** to `apps/web`; the install/build commands there `cd ../..` so the
-  monorepo installs and builds as a workspace. No env vars are required.
+- `apps/web/vercel.json` is the only config. Leave the Vercel project **Root
+  Directory empty** (repo root); the install/build commands there `cd ../..` so
+  the monorepo installs and builds as a workspace. No env vars are required.
+- **Do not set Root Directory to `apps/web`.** Vercel does not reliably honour
+  the custom `installCommand` for a nested root, and the `@risksense/*` workspace
+  packages then fail to resolve.
+- Vercel **blocks the build outright** when the Next.js version is affected by a
+  security advisory ("Vulnerable version of Next.js detected"). The fix is to
+  bump `next`/`eslint-config-next`; the patched 15.5.x line is published under
+  the `backport` dist-tag (`npm view next dist-tags`). Pinned at 15.5.29.
+- Live deployment: https://risk-sense12.vercel.app (verified: 1,300+ events from
+  5 keyless sources, globe renders, no console errors).
+
+## MapLibre worker (v6)
+- MapLibre v6 derives its worker URL from `import.meta.url`, which bundlers
+  rewrite to a path where the worker does not exist. The map then logs
+  "Worker failed to load" and draws nothing, while the build still passes.
+- `apps/web/scripts/copy-maplibre-worker.mjs` copies the worker into `public/`
+  (wired as `prebuild`/`predev`), and `MapView` calls `setWorkerUrl()` to point
+  at `/maplibre-gl-worker.mjs`. The copied file is committed so it exists even
+  when the scripts do not run, and it is excluded from eslint (generated).
+- Re-run the copy script after any `maplibre-gl` upgrade.
 
 ## Map rendering (learned the hard way)
 - `apps/web/src/lib/mapIcons.ts` builds marker sprites. Hazard markers are
