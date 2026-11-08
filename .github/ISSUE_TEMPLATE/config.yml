@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security report
+    url: https://github.com/zayaanakhan16-lang/RiskSense/security/policy
+    about: Please report vulnerabilities privately. See SECURITY.md.
+  - name: Question or idea
+    url: https://github.com/zayaanakhan16-lang/RiskSense/discussions
+    about: Ask a question or discuss an idea before filing an issue.

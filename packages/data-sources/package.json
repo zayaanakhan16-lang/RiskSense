@@ -1,0 +1,16 @@
+{
+  "name": "@risksense/data-sources",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "index.ts",
+  "types": "index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "dependencies": {
+    "@risksense/shared": "*",
+    "zod": "^3.25.76"
+  }
+}

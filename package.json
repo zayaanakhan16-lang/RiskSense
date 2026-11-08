@@ -1,0 +1,28 @@
+{
+  "name": "risksense",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "RiskSense \u2014 open-source global emergency intelligence & early warning platform.",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace apps/web",
+    "build": "npm run build --workspace apps/web",
+    "start": "npm run start --workspace apps/web",
+    "lint": "npm run lint --workspace apps/web",
+    "typecheck": "npm run typecheck --workspace apps/web",
+    "test": "npm run test --workspace apps/web",
+    "ingest": "tsx services/ingestion/run.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.3",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

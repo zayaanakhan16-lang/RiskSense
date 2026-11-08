@@ -1,0 +1,217 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-navy-2: var(--navy-2);
+  --color-navy-3: var(--navy-3);
+  --color-slate: var(--slate);
+  --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-emergency: var(--emergency);
+  --color-emergency-strong: var(--emergency-strong);
+  --color-emergency-soft: var(--emergency-soft);
+  --color-alert: var(--alert);
+  --color-alert-soft: var(--alert-soft);
+  --color-water: var(--water);
+  --color-water-soft: var(--water-soft);
+  --color-safe: var(--safe);
+  --color-safe-soft: var(--safe-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --radius-xs: var(--r-xs);
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+  --shadow-1: var(--sh-1);
+  --shadow-2: var(--sh-2);
+  --shadow-3: var(--sh-3);
+  --shadow-4: var(--sh-4);
+}
+
+* {
+  border-color: var(--line);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
+}
+
+/* Focus is never removed — accessibility requirement. */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+  border-radius: var(--r-xs);
+}
+
+::selection {
+  background: rgba(249, 115, 22, 0.22);
+}
+
+/* Thin, unobtrusive scrollbars inside floating panels. */
+.rs-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+.rs-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.rs-scroll::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 999px;
+}
+.rs-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* MapLibre chrome tuned to the RiskSense canvas. */
+.maplibregl-map {
+  font-family: var(--font-sans);
+  background: #eae7e0;
+}
+.maplibregl-ctrl-attrib {
+  font-size: 10px;
+  background: rgba(250, 249, 246, 0.86) !important;
+}
+.maplibregl-ctrl-attrib a {
+  color: var(--ink-2);
+}
+.maplibregl-popup-content {
+  padding: 0;
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-3);
+  overflow: hidden;
+}
+.maplibregl-popup-close-button {
+  font-size: 18px;
+  padding: 2px 8px;
+  color: var(--ink-2);
+}
+.maplibregl-ctrl-group {
+  border-radius: var(--r-sm) !important;
+  box-shadow: var(--sh-2) !important;
+}
+
+@keyframes rs-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+.rs-ping {
+  animation: rs-ping 2.2s var(--ease) infinite;
+}
+
+@keyframes rs-rise {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.rs-rise {
+  animation: rs-rise var(--dur) var(--ease);
+}
+
+@keyframes rs-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.rs-fade {
+  animation: rs-fade var(--dur) var(--ease);
+}
+
+@keyframes rs-pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+.rs-live-dot {
+  animation: rs-pulse-ring 2s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rs-ping,
+  .rs-rise,
+  .rs-fade,
+  .rs-live-dot {
+    animation: none !important;
+  }
+}
+
+.rs-overline {
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.rs-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Range slider used by the alert-radius control. */
+input[type="range"].rs-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--line-strong);
+}
+input[type="range"].rs-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--emergency);
+  border: 2px solid var(--white);
+  box-shadow: var(--sh-1);
+  cursor: pointer;
+}
+input[type="range"].rs-range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--emergency);
+  border: 2px solid var(--white);
+  cursor: pointer;
+}

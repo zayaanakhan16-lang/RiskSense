@@ -1,0 +1,85 @@
+/*
+ * RiskSense design tokens.
+ * An original public-safety identity: deep navy structure, warm off-white
+ * canvas, and a restrained emergency accent. No gradients, no neon.
+ */
+:root {
+  /* Brand / structure */
+  --navy: #102a43;
+  --navy-2: #243b53;
+  --navy-3: #334e68;
+  --slate: #486581;
+  --muted: #64748b;
+  --muted-2: #829ab1;
+
+  /* Canvas */
+  --paper: #faf9f6;
+  --paper-2: #f3f1ec;
+  --white: #ffffff;
+  --line: #e6e3dc;
+  --line-strong: #d5d1c7;
+
+  /* Text */
+  --ink: #102a43;
+  --ink-2: #486581;
+  --ink-3: #829ab1;
+  --ink-invert: #faf9f6;
+
+  /* Semantic */
+  --emergency: #f97316;
+  --emergency-strong: #ea580c;
+  --emergency-soft: #fff1e6;
+  --alert: #dc2626;
+  --alert-soft: #fdeaea;
+  --water: #0284c7;
+  --water-soft: #e0f0fa;
+  --safe: #0f9d58;
+  --safe-soft: #e3f5ec;
+  --warn: #ca8a04;
+  --warn-soft: #faf1d6;
+
+  /* Hazard accents (mirrors packages/shared/hazards.ts) */
+  --hazard-wildfire: #f97316;
+  --hazard-flood: #0284c7;
+  --hazard-earthquake: #7c3aed;
+  --hazard-severe-weather: #0891b2;
+  --hazard-cyclone: #1d4ed8;
+  --hazard-volcano: #b45309;
+  --hazard-extreme-heat: #dc2626;
+  --hazard-air-quality: #7e22ce;
+  --hazard-drought: #a16207;
+  --hazard-landslide: #92400e;
+  --hazard-industrial: #ca8a04;
+  --hazard-other: #64748b;
+
+  /* Radii — soft, floating controls */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* Elevation — soft and warm, never harsh */
+  --sh-1: 0 1px 2px rgba(16, 42, 67, 0.06), 0 1px 3px rgba(16, 42, 67, 0.05);
+  --sh-2: 0 4px 14px rgba(16, 42, 67, 0.08);
+  --sh-3: 0 12px 32px rgba(16, 42, 67, 0.12);
+  --sh-4: 0 20px 48px rgba(16, 42, 67, 0.16);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.8, 0.3, 1);
+  --dur-fast: 140ms;
+  --dur: 240ms;
+  --dur-slow: 420ms;
+
+  /* Layout */
+  --header-h: 60px;
+  --focus: 0 0 0 3px rgba(249, 115, 22, 0.45);
+}
+
+/* Typography — a single modern grotesk with a clear hierarchy. */
+:root {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
