@@ -86,6 +86,7 @@ npm run start      # run the production build
 npm run typecheck  # TypeScript, no emit
 npm run lint       # ESLint
 npm run test       # unit tests (node:test)
+npm run ingest     # headless snapshot of every source, written to ./data/local
 ```
 
 ### Optional configuration

@@ -193,6 +193,21 @@ job that writes snapshots to disk or a database.
 npm run ingest
 ```
 
+It fetches every registered source through the same aggregation path the web API
+uses and writes a snapshot to `INGESTION_OUTPUT_DIR` (default `./data/local`):
+
+- `latest.json` — the current picture, overwritten each run.
+- `events-<timestamp>.json` — a timestamped copy, so runs build a history.
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `INGESTION_OUTPUT_DIR` | `./data/local` | Where snapshots are written. |
+| `INGESTION_WINDOW` | `24` | Hours of history to include. |
+| `FIRMS_MAP_KEY` | unset | Optional; without it the FIRMS archives are read. |
+
+The run exits non-zero only when every source is degraded or unavailable, which
+usually means an outbound network problem rather than calm conditions.
+
 ## Style and review
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md). In short: TypeScript strict, no

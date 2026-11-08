@@ -10,6 +10,14 @@ with `packages/shared`, `packages/data-sources`, `packages/hazard-engine`.
 - Build: `cd apps/web && npm run build`
 - Typecheck: `cd apps/web && npx tsc --noEmit`
 - Lint: `cd apps/web && npx eslint src` (must stay clean)
+- Tests: `npm run test` from the repo root (node:test; `apps/web/tests/*.test.ts`).
+  Workspace symlinks (`node_modules/@risksense/*`) must exist, so run `npm install`
+  at the root first — a bare `npm install` inside `apps/web` does not create them.
+
+## Deploying to Vercel
+- `apps/web/vercel.json` is the only config. Set the Vercel project **Root
+  Directory** to `apps/web`; the install/build commands there `cd ../..` so the
+  monorepo installs and builds as a workspace. No env vars are required.
 
 ## Map rendering (learned the hard way)
 - `apps/web/src/lib/mapIcons.ts` builds marker sprites. Hazard markers are

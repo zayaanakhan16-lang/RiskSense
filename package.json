@@ -16,7 +16,8 @@
     "lint": "npm run lint --workspace apps/web",
     "typecheck": "npm run typecheck --workspace apps/web",
     "test": "npm run test --workspace apps/web",
-    "ingest": "tsx services/ingestion/run.ts"
+    "ingest": "tsx services/ingestion/run.ts",
+    "typecheck:services": "tsc --noEmit -p services/tsconfig.json"
   },
   "devDependencies": {
     "tsx": "^4.20.3",
