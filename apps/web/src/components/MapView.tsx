@@ -1,7 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import maplibregl, { type Map as MlMap } from "maplibre-gl";
+import {
+  Map as MlMap,
+  AttributionControl,
+  GeoJSONSource,
+  setWorkerUrl,
+  type ErrorEvent as MlErrorEvent,
+} from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { HAZARD_ORDER, hazardMeta, type HazardEvent, type HazardType } from "@risksense/shared";
 import { ATTRIBUTION, STYLE_URL, fallbackStyle } from "@/lib/mapStyle";
@@ -12,6 +18,14 @@ import {
   registerHazardSprites,
 } from "@/lib/mapIcons";
 import type { CommunityReport } from "@/lib/reports";
+
+// MapLibre v6 derives its worker URL from `import.meta.url`, which bundlers
+// rewrite to a path where the worker does not exist, so the map fails with
+// "Worker failed to load" and renders nothing. Point it at the copy served from
+// `public/` (see scripts/copy-maplibre-worker.mjs).
+if (typeof window !== "undefined") {
+  setWorkerUrl("/maplibre-gl-worker.mjs");
+}
 
 export interface MapViewProps {
   events: HazardEvent[];
@@ -124,7 +138,7 @@ export default function MapView({
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
 
-    const map = new maplibregl.Map({
+    const map = new MlMap({
       container: containerRef.current,
       style: STYLE_URL,
       center: [12, 22],
@@ -138,14 +152,14 @@ export default function MapView({
     mapRef.current = map;
 
     map.addControl(
-      new maplibregl.AttributionControl({ compact: true, customAttribution: ATTRIBUTION }),
+      new AttributionControl({ compact: true, customAttribution: ATTRIBUTION }),
       "bottom-right",
     );
 
     // If the vector basemap cannot be reached, fall back to a plain raster
     // basemap so hazard data still renders instead of an empty canvas.
-    map.on("error", (e) => {
-      const msg = String((e as { error?: Error }).error?.message ?? "");
+    map.on("error", (e: MlErrorEvent) => {
+      const msg = String(e.error?.message ?? "");
       if (!ready && /style|sprite|glyphs|tile|load/i.test(msg)) {
         setFailed(true);
       }
@@ -188,7 +202,7 @@ export default function MapView({
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !ready) return;
-    const source = map.getSource(SOURCE_ID) as maplibregl.GeoJSONSource | undefined;
+    const source = map.getSource(SOURCE_ID) as GeoJSONSource | undefined;
     source?.setData(geojson as never);
   }, [geojson, ready]);
 
@@ -208,7 +222,7 @@ export default function MapView({
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !ready) return;
-    const source = map.getSource(REPORT_SOURCE_ID) as maplibregl.GeoJSONSource | undefined;
+    const source = map.getSource(REPORT_SOURCE_ID) as GeoJSONSource | undefined;
     source?.setData(reportGeojson as never);
   }, [reportGeojson, ready]);
 
@@ -233,7 +247,7 @@ export default function MapView({
         },
       ],
     };
-    const src = map.getSource(PICKED_SOURCE_ID) as maplibregl.GeoJSONSource | undefined;
+    const src = map.getSource(PICKED_SOURCE_ID) as GeoJSONSource | undefined;
     if (src) {
       src.setData(data as never);
     } else {
