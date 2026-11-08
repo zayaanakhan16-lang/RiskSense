@@ -102,16 +102,17 @@ npm run ingest     # headless snapshot of every source, written to ./data/local
 
 ### Vercel (recommended)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fzayaanakhan16-lang%2FRiskSense&root-directory=apps/web)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fzayaanakhan16-lang%2FRiskSense)
 
 RiskSense deploys to Vercel as-is — no keys required. Because this is an npm
-workspaces monorepo, set the project **Root Directory** to `apps/web` when
-importing the repository (the `apps/web/vercel.json` file configures the rest).
-The button above pre-fills that setting.
+workspaces monorepo, leave the project **Root Directory** empty (the repository
+root) so the workspace packages resolve; `apps/web/vercel.json` supplies the
+install and build commands. Pointing the Root Directory at `apps/web` instead
+breaks workspace resolution on Vercel.
 
 1. Push the repository to GitHub.
 2. In Vercel, **Add New → Project** and import the repo.
-3. Set **Root Directory** to `apps/web`.
+3. Leave **Root Directory** empty and the **Framework Preset** on Next.js.
 4. Deploy. Add any optional variables from [`.env.example`](.env.example)
    under **Settings → Environment Variables**.
 

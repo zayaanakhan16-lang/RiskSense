@@ -74,19 +74,20 @@ docker compose up --build
 
 ## Vercel
 
-RiskSense deploys to Vercel with no configuration beyond the Root Directory.
+RiskSense deploys to Vercel with no configuration beyond leaving the Root Directory at the repository root.
 The repository is an npm-workspaces monorepo, so Vercel must install from the
 repository root while building the `apps/web` workspace.
 
 1. Push the repository to GitHub.
 2. In Vercel, **Add New → Project** and import the repository.
-3. Set **Root Directory** to `apps/web`.
-4. Leave the build settings on their detected defaults; `apps/web/vercel.json`
-   sets the install and build commands (`cd ../.. && npm install`, then
-   `cd ../.. && npm run build --workspace apps/web`).
-5. Add any optional variables from [`.env.example`](../.env.example) under
+3. Leave **Root Directory** empty (the repository root) and keep the
+   **Framework Preset** on Next.js. `apps/web/vercel.json` sets the install and
+   build commands (`cd ../.. && npm install`, then
+   `cd ../.. && npm run build --workspace apps/web`). Setting the Root Directory
+   to `apps/web` breaks resolution of the workspace packages.
+4. Add any optional variables from [`.env.example`](../.env.example) under
    **Settings → Environment Variables**.
-6. Deploy.
+5. Deploy.
 
 Notes:
 
